@@ -21,11 +21,10 @@ sub get_random_func {
 	my $name = $func_names[int(rand($#func_names + 1))];
 	my $expr_ref = mk_func($name);
     my $argc = get_arg_count($name);
-    my $left_set = set_left($expr_ref, get_random_expr($depth - 1, $vars_ref));
-    if ($argc < 2) {
-        return $left_set;
-    }
-	return set_right($left_set, get_random_expr($depth - 1, $vars_ref));
+	for my $argi (0..($argc - 1)) {
+		$expr_ref = set_arg($expr_ref, $argi, get_random_expr($depth - 1, $vars_ref));
+	}
+	return $expr_ref;
 }
 
 

@@ -30,6 +30,13 @@ sub set_left {
 	return \%expr;
 }
 
+sub set_arg {
+	my $expr_ref = $_[0];
+	my %expr = %$expr_ref;
+	$expr{args}[$_[1]] = $_[2];
+	return \%expr;
+}
+
 #
 # Sets the right expression for the given expression hash
 #
@@ -82,12 +89,11 @@ sub eval_expr {
 	if ($expr{type} eq "func") {
         my $func = get_function_ref($expr{func_name});
         my $argc = get_arg_count($expr{func_name});
-        if ($argc > 1) {
-            return $func->(eval_expr($expr{left}, $binding_ref), eval_expr($expr{right}, $binding_ref));
-        }
-        else {
-            return $func->(eval_expr($expr{left}, $binding_ref));
-        }
+		my @eval_args;
+		for my $argi (0..($argc - 1)) {
+			push @eval_args, eval_expr($expr{args}[$argi], $binding_ref);
+		}
+		return $func->(@eval_args);
 	}
 	elsif ($expr{type} eq "int") {
 		return $expr{value};

@@ -11,11 +11,13 @@ sub get_func_string {
 	my $expr_ref = $_[0];
 	my %expr = %$expr_ref;
 	my $name = $expr{func_name};
+	my $argc = get_arg_count($name);
 	my $string_rep = sprintf("(%s", $name);
-	if (get_arg_count($name) == 1) {
-		return sprintf("(%s %s)", $name, get_expr_string($expr{left}));
+	for my $argi (0..($argc - 1)) {
+		$string_rep .= sprintf(" %s", get_expr_string($expr{args}[$argi]));
 	}
-	return sprintf("(%s %s %s)", $name, get_expr_string($expr{left}), get_expr_string($expr{right}));
+	
+	return $string_rep . ")";
 }
 
 #
