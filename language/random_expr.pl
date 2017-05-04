@@ -11,14 +11,18 @@ sub get_random_int {
 	return mk_int($val);
 }
 
+sub get_random_func_name {
+	my @func_names = get_function_names();
+	return $func_names[int(rand($#func_names + 1))];
+}
+
 #
 # Returns a random function expression
 #
 sub get_random_func {
 	my $depth = $_[0];
 	my $vars_ref = $_[1];
-	my @func_names = get_function_names();
-	my $name = $func_names[int(rand($#func_names + 1))];
+	my $name = get_random_func_name();
 	my $expr_ref = mk_func($name);
     my $argc = get_arg_count($name);
 	for my $argi (0..($argc - 1)) {
