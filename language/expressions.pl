@@ -19,32 +19,10 @@ sub mk_func {
 	return \%expr;
 }
 
-#
-# Sets the left expression for the given expression hash
-#
-sub set_left {
-	my $expr_ref = $_[0];
-	my %expr = %$expr_ref;
-
-	$expr{left} = $_[1];
-	return \%expr;
-}
-
 sub set_arg {
 	my $expr_ref = $_[0];
 	my %expr = %$expr_ref;
 	$expr{args}[$_[1]] = $_[2];
-	return \%expr;
-}
-
-#
-# Sets the right expression for the given expression hash
-#
-sub set_right {
-	my $expr_ref = $_[0];
-	my %expr = %$expr_ref;
-
-	$expr{right} = $_[1];
 	return \%expr;
 }
 
