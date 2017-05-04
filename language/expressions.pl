@@ -19,6 +19,20 @@ sub mk_func {
 	return \%expr;
 }
 
+sub rep_func {
+	my $expr_ref = $_[0];
+	my %expr = %$expr_ref;
+	my %new_expr;
+	$new_expr{type} = $expr{type};
+	$new_expr{func_name} = $expr{func_name};
+	if ($expr{args}) {
+		foreach $i (0..($#expr{args})) {
+			$new_expr{args}[$i] = rep_expr($expr{args}[$i]);
+		}
+	}
+	return \%new_expr;
+}
+
 #
 # Sets the left expression for the given expression hash
 #
@@ -62,6 +76,15 @@ sub mk_int {
 	return \%expr;
 }
 
+sub rep_int {
+	my $expr_ref = $_[0];
+	my %expr = %$expr_ref;
+	my %new_expr;
+	$new_expr{type} = $expr{type};
+	$new_expr{value} = $expr{value};
+	return \%new_expr;
+}
+
 #
 # Returns a reference to an expression hash for the given
 #     variable symbol.
@@ -74,6 +97,31 @@ sub mk_var {
 	$expr{type} = "var";
 	$expr{var_name} = $_[0];
 	return \%expr;
+}
+
+sub rep_var {
+	my $expr_ref = $_[0];
+	my %expr = %$expr_ref;
+	my %new_expr;
+	$new_expr{type} = $expr{type};
+	$new_expr{var_name} = $expr{var_name};
+	return \%new_expr;
+}
+
+sub rep_expr {
+	my $expr_ref = $_[0];
+	my %expr = %$expr_ref;
+
+	if ($expr{type} == "func") {
+		return rep_func($expr_ref);
+	}
+	else if ($expr{type} == "int") {
+		return rep_int($expr_ref);
+	}
+	else if ($expr{type} == "var") {
+		return rep_var($expr_ref);
+	}
+	return $expr_ref;
 }
 
 #
