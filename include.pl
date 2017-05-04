@@ -5,6 +5,7 @@ use warnings;
 
 require "./language/initial_basis.pl";
 require "./language/expressions.pl";
+require "./language/replicate.pl";
 require "./language/random_expr.pl";
 
 require "./print/string_reps.pl";
