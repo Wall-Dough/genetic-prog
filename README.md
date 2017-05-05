@@ -10,17 +10,17 @@ Expressions can be randomly generated and evaluated based on a binding of values
 
 Included in the code is the ability to create pools of programs, test them against a set of test cases with expected results.
 
-main.pl
+- main.pl
   - Requires the include file
   - Generates a pool of 10 expressions
   - Generates a set of 10 test cases
   - Tests the pool of expressions on the test cases
-include.pm
+- include.pm
   - Links all of the separate perl modules
-language/
-  binding.pm
+- language/
+  - binding.pm
     - Some code written for the binding of values to variables. I don't think I actually use this anywhere in my code right now.
-  expressions.pm
+  - expressions.pm
     - The code for creating and evaluating expressions.
     - mk_func : accepts a function name and returns an expression for that function
     - set_arg : accepts a function expression, an argument number, and an expression and sets that argument number to that expression
@@ -39,12 +39,12 @@ language/
   replicate.pm
     - A set of functions to replicate an expression
     - I did not test this code
-print/
-  pretty_print.pm
+- print/
+  - pretty_print.pm
     - A set of functions to print an expression
-  string_reps.pm
+  - string_reps.pm
     - A set of functions that recursively return a string representation of an expression
-scoring/
-  pools.pm
+- scoring/
+  - pools.pm
     - A set of functions that generates a pool of expressions, and also generates a set of test cases.
     - All pool generation is random, and also is the test case generation at this point, simply as a proof of concept. The next step would have been to have a way to accept an input file of a specified format, with test cases to conform the program to.
