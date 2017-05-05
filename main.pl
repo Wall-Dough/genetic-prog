@@ -6,7 +6,7 @@
 use strict;
 use warnings;
 
-require "./include.pl";
+require "./include.pm";
 
 my @vars = ("x", "y", "z");
 my @test_cases;
